@@ -71,7 +71,7 @@ data = data.rename(columns=columns)
 # data.nome.unique().tolist()
 
 #Convertendo os dados para SIRGAS 2000 - UTM 24S
-bairros = gpd.read_file('/dados/Bairros_Itapagipe.geojson')
+bairros = gpd.read_file('dados/Bairros_Itapagipe.geojson')
 bairros = bairros.to_crs(31984)
 
 # Commented out IPython magic to ensure Python compatibility.
@@ -110,15 +110,15 @@ import matplotlib.pyplot as plt
 from libpysal.weights.contiguity import Queen
 
 # Carregando os dados
-polygons = gpd.read_file('/dados/Bairros_Itapagipe.geojson')
-points = gpd.read_file('/dados/Bairros_Itapagipe_pt.geojson')
+polygons = gpd.read_file('dados/Bairros_Itapagipe.geojson')
+points = gpd.read_file('dados/Bairros_Itapagipe_pt.geojson')
 
-dados = pd.read_csv('/dados/Tabela_bairros.csv', encoding='UTF-8')
-dados_r = pd.read_csv('/dados/Tabela_bairros_r.csv', encoding='UTF-8')
+dados = pd.read_csv('dados/Tabela_bairros.csv', encoding='UTF-8')
+dados_r = pd.read_csv('dados/Tabela_bairros_r.csv', encoding='UTF-8')
 
-bairros = gpd.read_file('/dados/Bairros_Itapagipe.geojson')
-bairros_pt = gpd.read_file('/dados/Bairros_Itapagipe_pt.geojson')
-ssa_bairros = gpd.read_file('/dados/SSA_Bairros.geojson')
+bairros = gpd.read_file('dados/Bairros_Itapagipe.geojson')
+bairros_pt = gpd.read_file('dados/Bairros_Itapagipe_pt.geojson')
+ssa_bairros = gpd.read_file('dados/SSA_Bairros.geojson')
 
 #Layout
 st.title('Península de Itapagipe')
@@ -135,12 +135,12 @@ st.sidebar.markdown(
 )
 
 st.sidebar.markdown('# Produção')
-st.sidebar.image('/dados/UNEB-PROET.jpg', use_column_width = 'always')
+st.sidebar.image('dados/UNEB-PROET.jpg', use_column_width = 'always')
 
 
 if pagina == 'Página Inicial':
     st.markdown('# Página Inicial')
-    st.image('/dados/I5.jpg', width = 400, use_column_width = 'always')
+    st.image('dados/I5.jpg', width = 400, use_column_width = 'always')
 
     st.markdown(
         """
@@ -288,9 +288,9 @@ if pagina == 'Mapas':
 
     
     def main():
-      bairros = gpd.read_file('/dados/Bairros_Itapagipe.geojson')
-      bairros_pt = gpd.read_file('/dados/Bairros_Itapagipe_pt.geojson')
-      ssa_bairros = gpd.read_file('/dados/SSA_Bairros.geojson')
+      bairros = gpd.read_file('dados/Bairros_Itapagipe.geojson')
+      bairros_pt = gpd.read_file('dados/Bairros_Itapagipe_pt.geojson')
+      ssa_bairros = gpd.read_file('dados/SSA_Bairros.geojson')
 
       st.subheader("Mapa da população total dos bairros da Península de Itapagipe 2000")
       m = folium.Map (location = [-12.93,-38.50],
