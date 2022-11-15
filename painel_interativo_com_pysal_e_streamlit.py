@@ -356,7 +356,7 @@ if pagina == 'Mapas geoestatísticos':
     fig, ax = plt.subplots(figsize=(10,7))
 
     bairros.dropna(subset=['população_total_2010']).to_crs(epsg=31984).plot('população_total_2010', legend=True, 
-    Linewidth=0.1, ax=ax, edgecolor='white')
+    linewidth=0.1, ax=ax, edgecolor='white')
 
     cx.add_basemap(ax, source=cx.providers.Stamen.TonerLite)
     ax.axis('off')
@@ -386,7 +386,7 @@ if pagina == 'Mapas geoestatísticos':
     f, ax = plt.subplots(1, figsize=(10,9))
 
     bairros.assign(cl=ylag).plot(column='cl', scheme='quantiles',
-      k=5, cmap='GnBu', Linewidth=0.1, ax=ax,
+      k=5, cmap='GnBu', linewidth=0.1, ax=ax,
       edgecolor='white', legend=True)
 
     cx.add_basemap(ax, source=cx.providers.Stamen.TonerLite)
