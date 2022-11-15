@@ -12,7 +12,7 @@ O objetivo deste projeto é criar um painel interativo com dados geoestatístico
 
 #Importando os dados
 import geopandas as gpd
-df = '/dados/Bairros_Itapagipe.geojson'
+df = 'dados/Bairros_Itapagipe.geojson'
 
 ssa = gpd.read_file(df)
 # ssa.plot()
