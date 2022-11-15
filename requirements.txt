@@ -1,0 +1,11 @@
+streamlit
+pyngrok
+streamlit-folium
+pandas
+geopandas
+plotly
+folium
+pysal
+contextily
+mapclassify
+esda
