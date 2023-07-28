@@ -340,7 +340,8 @@ if pagina == 'Gráficos':
     'população_não_alfabetizada','renda_média',
     'domicílios_particulares','domicílios_subnormais',
     'infraestrutura','densidade_demográfica',
-    'idhm'])
+    # 'idhm'
+    ])
 
     col_2000 = var_4+'_2000'
     col_2010 = var_4+'_2010'
