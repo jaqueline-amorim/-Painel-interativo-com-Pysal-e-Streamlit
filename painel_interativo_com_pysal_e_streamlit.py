@@ -313,7 +313,8 @@ if pagina == 'Gráficos':
     'população_não_alfabetizada_2000','renda_média_2000',
     'domicílios_particulares_2000','domicílios_subnormais_2000',
     'infraestrutura_2000','densidade_demográfica_2000',
-    'idhm_2000'])
+    # 'idhm_2000'
+    ])
 
     b2000 = altair_barchart(dados_r,var_2)
     st.altair_chart(b2000, use_container_width=True)
@@ -329,7 +330,8 @@ if pagina == 'Gráficos':
     'população_não_alfabetizada_2010','renda_média_2010',
     'domicílios_particulares_2010','domicílios_subnormais_2010',
     'infraestrutura_2010','densidade_demográfica_2010',
-    'idhm_2010'])
+    # 'idhm_2010'
+    ])
 
     b2010 = altair_barchart(dados_r,var_3)
     st.altair_chart(b2010, use_container_width=True)
