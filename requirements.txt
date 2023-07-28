@@ -8,3 +8,4 @@ pysal
 contextily
 mapclassify
 esda
+altair

@@ -108,6 +108,9 @@ import esda
 import contextily as cx
 import matplotlib.pyplot as plt
 from libpysal.weights.contiguity import Queen
+import altair as alt
+
+from funcoes import *
 
 # Carregando os dados
 polygons = gpd.read_file('dados/Bairros_Itapagipe.geojson')
@@ -174,6 +177,8 @@ if pagina == 'Página Inicial':
         """
     Este projeto está sendo desenvolvido por Jaqueline Lima Amorim, Urbanista (UNEB, 2018) e Mestranda do programa de Pós-graduação de 
     Estudos Territoriais da Universidade do Estado da Bahia, tendo este projeto como parte da sua pesquisa atual.
+
+    Kauê de Moraes Vestena, doutorando em Ciências Geodésicas pela UFPR participa como contribuidor do projeto.
         """
     )
 
@@ -281,6 +286,47 @@ if pagina == 'Gráficos':
     ptr = dados_r.set_index('nome')[var_3].plot(kind = 'barh')
     st.pyplot(plt)
     plt.clf()
+
+    st.subheader("Comparativo 2000 x 2010")
+    var_4 = st.selectbox('Selecione uma variável para a comparação', ['homens','mulheres',
+    'idade_0_a_14','idade_15_a_64','idade_65+',
+    'população_não_alfabetizada','renda_média',
+    'domicílios_particulares','domicílios_subnormais',
+    'infraestrutura','densidade_demográfica',
+    'idhm'])
+
+    col_2000 = var_4+'_2000'
+    col_2010 = var_4+'_2010'
+
+    ext_2000 = get_minmax(dados_r,col_2000)
+    ext_2010 = get_minmax(dados_r,col_2010)
+
+    comp = alt.Chart(dados_r).mark_circle(size=60).encode(
+    # x=col_2000,
+    # y=col_2010,
+    x = alt.X(col_2000,scale=alt.Scale(domain=ext_2000)),
+    y = alt.Y(col_2010,scale=alt.Scale(domain=ext_2010)),
+
+    # x = alt.X(col_2000,scale=alt.Scale(domain=(20,80))),
+    # y = alt.Y(col_2010,scale=alt.Scale(domain=(10,90))),
+
+
+    # x = alt.X(col_2000,scale=alt.Scale(domain="unaggregated")),
+    # y = alt.Y(col_2010,scale=alt.Scale(domain="unaggregated")),
+
+    color='nome',
+    tooltip=['população_total_2000','população_total_2010']
+    ).interactive()
+
+    st.altair_chart(comp, use_container_width=True)
+
+    st.write(ext_2000)
+    st.write(ext_2010)
+
+
+
+
+
 
 
 if pagina == 'Mapas':
