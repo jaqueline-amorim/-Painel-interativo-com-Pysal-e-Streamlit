@@ -251,43 +251,90 @@ if pagina == 'Metadados':
 if pagina == 'Gráficos':
     st.header('Gráficos')
 
-    st.subheader(" População total por bairros em 2010")
-    result = dados.groupby(["nome"])['população_total_2010'].aggregate(np.median).reset_index().sort_values('população_total_2010')
-    nDf = result[result['população_total_2010']>0]
-    plt.figure(figsize=(13,7))
-    sns.barplot(y='nome',x='população_total_2010', data = nDf)
-    plt.xlabel('População total 2010')
-    plt.ylabel('Bairros')
-    st.pyplot(plt)
-    plt.clf()
+    # st.subheader("População total por bairros em 2000")
+    # result_2000 = dados.set_index('nome').groupby(["nome"])['população_total_2000'].aggregate(np.sum).reset_index().sort_values('população_total_2000')
+
+    
+
+    # nDf_2000 = result_2000[result_2000['população_total_2000']>0]
+
+    # total_pop_2000 = altair_barchart(nDf_2000,'população_total_2000')
+    # st.altair_chart(total_pop_2000, use_container_width=True)
 
 
-    st.subheader(" Dados por bairro em função da população total - 2000")
-    var_2 = st.selectbox('Selecione uma variável - 2000', ['homens_2000','mulheres_2000',
+    # st.subheader("População total por bairros em 2010")
+    # result = dados.set_index('nome').groupby(["nome"])['população_total_2010'].aggregate(np.sum).reset_index().sort_values('população_total_2010')
+
+    
+
+    # nDf = result[result['população_total_2010']>0]
+
+    # total_pop_2010 = altair_barchart(nDf,'população_total_2010')
+    # st.altair_chart(total_pop_2010, use_container_width=True)
+
+    # plt.figure(figsize=(13,7))
+    # sns.barplot(y='nome',x='população_total_2010', data = nDf)
+    # plt.xlabel('População total 2010')
+    # plt.ylabel('Bairros')
+    # st.pyplot(plt)
+    # plt.clf()
+
+    st.subheader("População total 2000 x 2010")
+
+    d1 = dados.groupby(["nome"])[['população_total_2000','população_total_2010']].aggregate(np.sum).reset_index()
+
+    df_2000 = d1[['nome','população_total_2000']].rename(columns={'população_total_2000':'população'})
+    df_2000['ano'] = 2000
+
+    df_2010 = d1[['nome','população_total_2010']].rename(columns={'população_total_2010':'população'})
+    df_2010['ano'] = 2010
+
+    df_tot = pd.concat([df_2000,df_2010])
+
+
+    pop_comp = alt.Chart(df_tot).mark_bar().encode(
+    x=alt.X('ano:O',title=None),
+    y='população:Q',
+    color=alt.Color('ano', legend=None,type='quantitative'),
+    column=alt.Column('nome',title=None,header=alt.Header(labelColor='white',labelAngle=-90,labelBaseline='line-top',labelAlign='right',labelFontSize=15)),
+    ).properties(width=30).interactive()
+
+    # pop_comp.configure_axisX(labelColor='white')
+
+
+
+    st.altair_chart(pop_comp, use_container_width=False)
+
+
+
+    st.subheader(" Dados por bairro - 2000")
+    var_2 = st.selectbox('Selecione uma variável', ['homens_2000','mulheres_2000',
     'idade_0_a_14_2000','idade_15_a_64_2000','idade_65+_2000',
     'população_não_alfabetizada_2000','renda_média_2000',
     'domicílios_particulares_2000','domicílios_subnormais_2000',
     'infraestrutura_2000','densidade_demográfica_2000',
     'idhm_2000'])
 
+    b2000 = altair_barchart(dados_r,var_2)
+    st.altair_chart(b2000, use_container_width=True)
 
-    ptr = dados_r.set_index('nome')[var_2].plot(kind = 'barh')
-    st.pyplot(plt)
-    plt.clf()
 
-    st.subheader(" Dados por bairro em função da população total - 2010")
-    var_3 = st.selectbox('Selecione uma variável - 2010', ['homens_2010','mulheres_2010',
+    # ptr = dados_r.set_index('nome')[var_2].plot(kind = 'barh')
+    # st.pyplot(plt)
+    # plt.clf()
+
+    st.subheader(" Dados por bairro - 2010")
+    var_3 = st.selectbox('Selecione uma variável', ['homens_2010','mulheres_2010',
     'idade_0_a_14_2010','idade_15_a_64_2010','idade_65+_2010',
     'população_não_alfabetizada_2010','renda_média_2010',
     'domicílios_particulares_2010','domicílios_subnormais_2010',
     'infraestrutura_2010','densidade_demográfica_2010',
     'idhm_2010'])
 
-    ptr = dados_r.set_index('nome')[var_3].plot(kind = 'barh')
-    st.pyplot(plt)
-    plt.clf()
+    b2010 = altair_barchart(dados_r,var_3)
+    st.altair_chart(b2010, use_container_width=True)
 
-    st.subheader("Comparativo 2000 x 2010")
+    st.subheader("Comparativo dos dados 2000 x 2010")
     var_4 = st.selectbox('Selecione uma variável para a comparação', ['homens','mulheres',
     'idade_0_a_14','idade_15_a_64','idade_65+',
     'população_não_alfabetizada','renda_média',
@@ -320,8 +367,7 @@ if pagina == 'Gráficos':
 
     st.altair_chart(comp, use_container_width=True)
 
-    st.write(ext_2000)
-    st.write(ext_2010)
+
 
 
 
