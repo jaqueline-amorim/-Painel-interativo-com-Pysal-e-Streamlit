@@ -378,52 +378,70 @@ if pagina == 'Gráficos':
 if pagina == 'Mapas':
     st.header('Mapas')
 
-    
     def main():
+      map_center = [-12.9265,-38.50]
+      
       bairros = gpd.read_file('dados/Bairros_Itapagipe.geojson')
-      bairros_pt = gpd.read_file('dados/Bairros_Itapagipe_pt.geojson')
-      ssa_bairros = gpd.read_file('dados/SSA_Bairros.geojson')
+
+
+      bairros_2000 = bairros.rename(columns={'população_total_2000':'população'})
+      bairros_2010 = bairros.rename(columns={'população_total_2010':'população'})
 
       st.subheader("Mapa da população total dos bairros da Península de Itapagipe 2000")
-      m = folium.Map (location = [-12.93,-38.50],
+      m = folium.Map (location = map_center,
                     tiles = 'Stamen Terrain',
-                    zoom_start = 13 
+                    zoom_start = 14 ,
                     )
 
-      bins = list(bairros['população_total_2000'].quantile([0, 0.25, 0.5, 0.75, 1]))
-      folium.Choropleth(
-      geo_data=bairros,
-      name='população_total_2000',
-      columns=['código', 'população_total_2000'],
-      data=bairros,
+      bins = list(bairros_2000['população'].quantile([0, 0.25, 0.5, 0.75, 1]))
+
+      m1 = folium.Choropleth(
+      geo_data=bairros_2000,
+      name='população',
+      columns=['código', 'população'],
+      data=bairros_2000,
       key_on='feature.properties.código',
       fill_color='YlGnBu',
       legend_name='População total 2000',
       bins=bins,
-      reset=True
+      reset=True,
+      highlight=True,
       ).add_to(m)
 
-      folium_static(m)
-      n = folium.Map (location = [-12.93,-38.50],
+
+      folium.GeoJsonTooltip(['nome','população']).add_to(m1.geojson)
+
+      folium_static(m,height=600)
+
+
+
+      n = folium.Map (location = map_center,
                     tiles = 'Stamen Terrain',
-                    zoom_start = 13
+                    zoom_start = 14
                     )
 
       st.subheader("Mapa da população total dos bairros da Península de Itapagipe 2010")
-      bins = list(bairros['população_total_2010'].quantile([0, 0.25, 0.5, 0.75, 1]))
-      folium.Choropleth(
-      geo_data=bairros,
-      name='população_total_2010',
-      columns=['código', 'população_total_2010'],
-      data=bairros,
+
+      bins = list(bairros_2010['população'].quantile([0, 0.25, 0.5, 0.75, 1]))
+
+      m2 = folium.Choropleth(
+      geo_data=bairros_2010,
+      name='população',
+      columns=['código', 'população'],
+      data=bairros_2010,
       key_on='feature.properties.código',
       fill_color='YlGnBu',
       legend_name='População total 2010',
       bins=bins,
-      reset=True
+      reset=True,
+      highlight=True,
       ).add_to(n)
 
-      folium_static(n)
+
+      folium.GeoJsonTooltip(['nome','população']).add_to(m2.geojson)
+
+
+      folium_static(n,height=600)
 
 
     if __name__ == '__main__':
