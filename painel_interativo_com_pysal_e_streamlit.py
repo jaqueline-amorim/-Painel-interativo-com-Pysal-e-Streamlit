@@ -198,11 +198,11 @@ if pagina == 'Dados':
     st.table(pt)
 
     var1 = st.selectbox('Selecione uma variável - 2010', ['população_total_2010','homens_2010','mulheres_2010',
-                                                'idade_0_a_14_2010','idade_15_a_64_2010','idade_65+_2010',
-                                                'população_não_alfabetizada_2010','renda_média_2010',
-                                                'domicílios_particulares_2010','domicílios_subnormais_2010',
-                                                'infraestrutura_2010','densidade_demográfica_2010',
-                                                'idhm_2010'])
+    'idade_0_a_14_2010','idade_15_a_64_2010','idade_65+_2010',
+    'população_não_alfabetizada_2010','renda_média_2010',
+    'domicílios_particulares_2010','domicílios_subnormais_2010',
+    'infraestrutura_2010','densidade_demográfica_2010',
+    'idhm_2010'])
 
     ptr = dados_r['nome'].groupby(dados[var1]).sum()
     st.table(ptr)
@@ -259,26 +259,26 @@ if pagina == 'Gráficos':
 
     st.subheader(" Dados por bairro em função da população total - 2000")
     var_2 = st.selectbox('Selecione uma variável - 2000', ['homens_2000','mulheres_2000',
-                                                'idade_0_a_14_2000','idade_15_a_64_2000','idade_65+_2000',
-                                                'população_não_alfabetizada_2000','renda_média_2000',
-                                                'domicílios_particulares_2000','domicílios_subnormais_2000',
-                                                'infraestrutura_2000','densidade_demográfica_2000',
-                                                'idhm_2000'])
+    'idade_0_a_14_2000','idade_15_a_64_2000','idade_65+_2000',
+    'população_não_alfabetizada_2000','renda_média_2000',
+    'domicílios_particulares_2000','domicílios_subnormais_2000',
+    'infraestrutura_2000','densidade_demográfica_2000',
+    'idhm_2000'])
 
 
-    ptr = dados_r['população_total_2000'].groupby(dados_r[var_2]).sum().plot(kind = 'barh')
+    ptr = dados_r.set_index('nome')[var_2].plot(kind = 'barh')
     st.pyplot(plt)
     plt.clf()
 
     st.subheader(" Dados por bairro em função da população total - 2010")
     var_3 = st.selectbox('Selecione uma variável - 2010', ['homens_2010','mulheres_2010',
-                                                'idade_0_a_14_2010','idade_15_a_64_2010','idade_65+_2010',
-                                                'população_não_alfabetizada_2010','renda_média_2010',
-                                                'domicílios_particulares_2010','domicílios_subnormais_2010',
-                                                'infraestrutura_2010','densidade_demográfica_2010',
-                                                'idhm_2010'])
+    'idade_0_a_14_2010','idade_15_a_64_2010','idade_65+_2010',
+    'população_não_alfabetizada_2010','renda_média_2010',
+    'domicílios_particulares_2010','domicílios_subnormais_2010',
+    'infraestrutura_2010','densidade_demográfica_2010',
+    'idhm_2010'])
 
-    ptr = dados_r['população_total_2010'].groupby(dados_r[var_3]).mean().plot(kind = 'barh')
+    ptr = dados_r.set_index('nome')[var_3].plot(kind = 'barh')
     st.pyplot(plt)
     plt.clf()
 
