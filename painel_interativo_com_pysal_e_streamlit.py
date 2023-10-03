@@ -179,6 +179,8 @@ if pagina == 'Página Inicial':
     Estudos Territoriais da Universidade do Estado da Bahia, tendo este projeto como parte da sua pesquisa atual.
 
     Kauê de Moraes Vestena, doutorando em Ciências Geodésicas pela UFPR participa como contribuidor do projeto.
+
+    [O código fonte do projeto está disponível no Github](https://github.com/jaqueline-amorim/-Painel-interativo-com-Pysal-e-Streamlit/tree/main)
         """
     )
 
